@@ -35,3 +35,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# information
+Bluefuse_technical_assessment.pdf
