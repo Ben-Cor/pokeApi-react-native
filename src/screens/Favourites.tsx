@@ -1,11 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import Navbar from "../components/Navbar";
 
 export default function Favourites() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Favourites Screen</Text>
-      <Text>List of favourite Pokémon will be displayed here.</Text>
+    <View style={styles.screenContainer}>
+        <Navbar />
+        <View style={styles.container}>
+        <Text style={styles.title}>Favourites Screen</Text>
+        <Text>List of favourite Pokémon will be displayed here.</Text>
+        </View>
     </View>
   );
 }
@@ -22,4 +26,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
   },
+  screenContainer: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+},
 });

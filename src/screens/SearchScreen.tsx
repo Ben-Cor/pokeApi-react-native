@@ -8,6 +8,7 @@ import { Pokemon } from '../types/pokemon';
 import SearchResults from '../components/SearchResults';
 import { SearchScreenNavigationProp } from '../types/navigation';
 import { useNavigation } from '@react-navigation/native';
+import Navbar from '../components/Navbar';
 
 export default function SearchScreen() {
   // This will hold our Pokemon data after searching
@@ -38,6 +39,7 @@ export default function SearchScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
+      <Navbar />
       <PokemonSearchbar onSearch={handleSearch} />
       
       <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.scrollContent}>
