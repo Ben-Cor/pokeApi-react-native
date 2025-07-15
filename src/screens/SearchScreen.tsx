@@ -1,6 +1,6 @@
 // src/screens/SearchScreen.tsx
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, SafeAreaView } from 'react-native';
+import { View, StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
 import PokemonSearchbar from '../components/Searchbar';
 import Header from '../components/Header';
 import usePokemonInfo from '../hooks/pokemonInfo';
@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function SearchScreen() {
   // This will hold our Pokemon data after searching
-  const [searchedPokemon, setSearchedPokemon] = useState<Pokemon | null>(null);
+  const [searchedPokemon, setSearchedPokemon] = useState<Pokemon[]>([]);
   
   // Get functions from your hook
   const { pokemonData, loading, error, getPokemonData } = usePokemonInfo();
@@ -40,7 +40,7 @@ export default function SearchScreen() {
       <Header />
       <PokemonSearchbar onSearch={handleSearch} />
       
-      <View style={styles.content}>
+      <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.scrollContent}>
         
         {loading && (
           <Text style={styles.message}>Looking for Pokemon...</Text>
@@ -52,18 +52,19 @@ export default function SearchScreen() {
           </Text>
         )}
         
-        
-        {searchedPokemon && !loading && !error && (
-          <SearchResults results={pokemonData ? [pokemonData] : null} onPokemonPress={handlePokemonPress} />
+        {/* Show Pokemon results if we found any */}
+        {pokemonData.length > 0 && !loading && !error && (
+          <SearchResults results={pokemonData} onPokemonPress={handlePokemonPress} />
         )}
         
-        {!loading && !error && !searchedPokemon && (
+        {/* Show welcome message when nothing is happening */}
+        {!loading && !error && pokemonData.length === 0 && (
           <Text style={styles.message}>
             Welcome! Search for a Pokemon above.
           </Text>
         )}
         
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -73,36 +74,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  content: {
+  scrollContainer: {
     flex: 1,
+  },
+  scrollContent: {
     padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    minHeight: '100%',
   },
   message: {
     fontSize: 18,
     color: '#666',
     textAlign: 'center',
+    marginTop: 50,
   },
   errorMessage: {
     fontSize: 18,
     color: 'red',
     textAlign: 'center',
-  },
-  pokemonCard: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  pokemonName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#333',
+    marginTop: 50,
   },
 });

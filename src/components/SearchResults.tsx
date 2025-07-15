@@ -18,22 +18,23 @@ export default function SearchResults({ results, onPokemonPress }: SearchResults
 
   return (
     <View style={styles.container}>
-      {results.map((pokemon) => (
-        <TouchableOpacity
-          key={pokemon.id}
-          style={styles.resultItem}
-          onPress={() => onPokemonPress(pokemon)}
-          // hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
-        >
-          <Text style={styles.resultText}>
-            {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-          </Text>
-          <Image 
-                  source={{ uri: pokemon.sprites.front_default }} 
-                  style={styles.sprite}
-                />
-        </TouchableOpacity>
-      ))}
+      <View style={styles.grid}>
+        {results.map((pokemon) => (
+          <TouchableOpacity
+            key={pokemon.id}
+            style={styles.gridItem}
+            onPress={() => onPokemonPress(pokemon)}
+          >
+            <Image 
+              source={{ uri: pokemon.sprites.front_default }} 
+              style={styles.sprite}
+            />
+            <Text style={styles.resultText}>
+              {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 }
@@ -41,27 +42,22 @@ export default function SearchResults({ results, onPokemonPress }: SearchResults
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: '#fff',
-    alignContent: 'center',
-    textAlign: 'center',
   },
-  resultText: {
-    fontSize: 18,
-    color: '#333',
-    marginVertical: 8,
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
   },
-  noResultsText: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-    marginTop: 20,
-  },
-  resultItem: {
-    padding: 12,
-    borderRadius: 8,
+  gridItem: {
+    width: '31%', // Roughly 1/3 of the width with some margin
     backgroundColor: '#f0f0f0',
-    marginBottom: 8,
+    borderRadius: 12,
+    padding: 10,
+    marginBottom: 15,
+    alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -69,9 +65,20 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   sprite: {
-    width: 100,
-    height: 100,
-    alignSelf: 'center',
-    marginTop: 10,
+    width: 80,
+    height: 80,
+    marginBottom: 8,
+  },
+  resultText: {
+    fontSize: 12,
+    color: '#333',
+    textAlign: 'center',
+    fontWeight: '600',
+  },
+  noResultsText: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginTop: 50,
   },
 });

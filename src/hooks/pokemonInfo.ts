@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Pokemon } from "../types/pokemon";
 
 export default function usePokemonInfo() {
-  const [pokemonData, setPokemonData] = useState<Pokemon | null>(null); // Initialize as null to handle cases where no data is fetched
+  const [pokemonData, setPokemonData] = useState<Pokemon[]>([]); // Initialize as empty array
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null); //either string or null
 
@@ -12,14 +12,34 @@ export default function usePokemonInfo() {
     setError(null);
     
     try {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
-      if (!response.ok) throw new Error('Pokemon not found');
+      // First, fetch the list of all Pokemon to search through
+      const listResponse = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1000');
+      if (!listResponse.ok) throw new Error('Failed to fetch Pokemon list');
       
-      const data = await response.json();
-      setPokemonData(data);
+      const listData = await listResponse.json();
+
+      // Filter results that include the search term
+      const filteredResults = listData.results.filter((p: { name: string }) =>
+        p.name.includes(name.toLowerCase())
+      );
+      
+      if (filteredResults.length === 0) {
+        throw new Error('No Pokemon found matching your search');
+      }
+      
+      // Fetch details for each matching Pokémon
+      const pokeList = await Promise.all(
+        // Limit to 20 results for performance
+        filteredResults.slice(0, 20).map(async (p: { url: string }) => {
+          const response = await fetch(p.url);
+          return await response.json();
+        })
+      );
+
+      setPokemonData(pokeList);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
-      setPokemonData(null);
+      setPokemonData([]);
     } finally {
       setLoading(false);
     }
