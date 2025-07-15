@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { View, TextInput, TouchableOpacity, Text, StyleSheet } from "react-native";
 
+// Define the props for the Searchbar component
 interface SearchbarProps {
-  onSearch: (searchTerm: string) => void;
-  placeholder?: string;
+  onSearch: (searchTerm: string) => void; 
+  placeholder?: string; //optional prop for placeholder text
 }
 
-export function PokemonSearchbar({ onSearch, placeholder = "Search Pokemon..." }: SearchbarProps) {
+export default function PokemonSearchbar({ onSearch, placeholder = "Search Pokemon..." }: SearchbarProps) {
+
+  // State to hold the search term
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Function to handle search when the user submits the input
+  // or presses the search button
+  // It trims the input to avoid unnecessary spaces
   const handleSearch = () => {
     if (searchTerm.trim()) {
       onSearch(searchTerm.trim());
@@ -16,9 +22,9 @@ export function PokemonSearchbar({ onSearch, placeholder = "Search Pokemon..." }
   };
 
   return (
-    <View style={pokemonStyles.container}>
+    <View style={searchbarStyle.container}>
       <TextInput
-        style={pokemonStyles.input}
+        style={searchbarStyle.input}
         value={searchTerm}
         onChangeText={setSearchTerm}
         placeholder={placeholder}
@@ -29,17 +35,17 @@ export function PokemonSearchbar({ onSearch, placeholder = "Search Pokemon..." }
         autoCorrect={false}
       />
       <TouchableOpacity 
-        style={pokemonStyles.button} 
+        style={searchbarStyle.button} 
         onPress={handleSearch}
         activeOpacity={0.8}
       >
-        <Text style={pokemonStyles.buttonText}>🔍</Text>
+        <Text style={searchbarStyle.buttonText}>🔍</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
-const pokemonStyles = StyleSheet.create({
+const searchbarStyle = StyleSheet.create({
   container: {
     flexDirection: 'row',
     margin: 16,
