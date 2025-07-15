@@ -5,9 +5,27 @@ import PokemonSearchbar from '../components/Searchbar';
 import Header from '../components/Header';
 import usePokemonInfo from '../hooks/pokemonInfo';
 
+//duplicate of pokemon interface
+//TODO check if this can be imported rather than duplicated code
+interface Pokemon {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+  sprites: {
+    front_default: string;
+  };
+  stats: Array<{
+    base_stat: number;
+    stat: { name: string };
+  }>;
+  game_indices: Array<any>;
+  species: { name: string };
+}
+
 export default function SearchScreen() {
   // This will hold our Pokemon data after searching
-  const [searchedPokemon, setSearchedPokemon] = useState(null);
+  const [searchedPokemon, setSearchedPokemon] = useState<Pokemon | null>(null);
   
   // Get functions from your hook
   const { pokemonData, loading, error, getPokemonData } = usePokemonInfo();
