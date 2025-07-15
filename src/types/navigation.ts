@@ -4,7 +4,7 @@ import { Pokemon } from './pokemon';
 export type RootStackParamList = {
   Search: undefined;
   PokeInfo: { pokemon: Pokemon };
-  // Add other screens here
+  Favourites: undefined;
 };
 
 export type SearchScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Search'>;

@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SearchScreen from './src/screens/SearchScreen';
 import PokeInfo from './src/screens/PokeInfo';
+import Favourites from './src/screens/Favourites';
 import { RootStackParamList } from './src/types/navigation';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -21,6 +22,11 @@ export default function App() {
           name="PokeInfo" 
           component={PokeInfo} 
           options={{ title: 'Pokemon Details' }}
+        />
+        <Stack.Screen 
+          name="Favourites" 
+          component={Favourites} 
+          options={{ title: 'Favourites' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
