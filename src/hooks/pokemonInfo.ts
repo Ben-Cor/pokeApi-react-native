@@ -1,21 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-// Define the structure of the Pokemon data
-interface Pokemon {
-  id: number;
-  name: string;
-  height: number;
-  weight: number;
-  sprites: {
-    front_default: string;
-  };
-  stats: Array<{
-    base_stat: number;
-    stat: { name: string };
-  }>;
-  game_indices: Array<any>;
-  species: { name: string };
-}
+import { Pokemon } from "../types/pokemon";
 
 export default function usePokemonInfo() {
   const [pokemonData, setPokemonData] = useState<Pokemon | null>(null); // Initialize as null to handle cases where no data is fetched
