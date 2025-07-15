@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useRoute, RouteProp } from '@react-navigation/native';
 import { Pokemon } from '../types/pokemon';
 import { RootStackParamList } from '../types/navigation';
@@ -8,9 +8,22 @@ export default function PokeInfo() {
   const route = useRoute<RouteProp<RootStackParamList, 'PokeInfo'>>();
   const { pokemon } = route.params;
 
+  const [favourite, setFavourite] = React.useState(false);
+
+  const toggleFavourite = () => {
+    setFavourite(!favourite);
+    // TODO Global state to be added here later
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</Text>
+
+      <TouchableOpacity onPress={toggleFavourite}>
+        <Text style={{ color: 'blue', marginBottom: 20 }}>
+          {favourite ? 'Remove from Favourites' : 'Add to Favourites'}
+        </Text>
+      </TouchableOpacity>
       
       <Image 
         source={{ uri: pokemon.sprites.front_default }} 
