@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useRoute } from '@react-navigation/native';
+import { Pokemon } from '../types/pokemon';
 
 export default function PokeInfo() {
   const route = useRoute();

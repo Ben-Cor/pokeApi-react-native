@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import usePokemonInfo from '../hooks/pokemonInfo';
 import { Pokemon } from '../types/pokemon';
 import SearchResults from '../components/SearchResults';
+import { SearchScreenNavigationProp } from '../types/navigation';
 import { useNavigation } from '@react-navigation/native';
 
 export default function SearchScreen() {
@@ -28,11 +29,9 @@ export default function SearchScreen() {
     }
   }, [pokemonData]);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<SearchScreenNavigationProp>();
 
   const handlePokemonPress = (pokemon: Pokemon) => {
-    // Navigate to PokeInfo screen with the selected Pokemon data
-    console.log('Pokemon pressed:', pokemon.name);
     navigation.navigate('PokeInfo', { pokemon });
   };
 
