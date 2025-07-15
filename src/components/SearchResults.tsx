@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    gap: 10, // Add gap between it
     paddingHorizontal: 10,
     paddingVertical: 10,
   },

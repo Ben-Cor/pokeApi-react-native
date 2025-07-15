@@ -29,8 +29,8 @@ export default function usePokemonInfo() {
       
       // Fetch details for each matching Pokémon
       const pokeList = await Promise.all(
-        // Limit to 20 results for performance
-        filteredResults.slice(0, 20).map(async (p: { url: string }) => {
+        // Limit to 21 results for performance
+        filteredResults.slice(0, 21).map(async (p: { url: string }) => {
           const response = await fetch(p.url);
           return await response.json();
         })
