@@ -12,7 +12,11 @@ const Stack = createStackNavigator<RootStackParamList>();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Search">
+      <Stack.Navigator 
+      initialRouteName="Search"
+      screenOptions={{
+      headerShown: false // This hides all headers
+          }}>
         <Stack.Screen 
           name="Search" 
           component={SearchScreen} 
