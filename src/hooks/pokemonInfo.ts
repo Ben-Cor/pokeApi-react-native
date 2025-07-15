@@ -6,8 +6,8 @@ export default function pokemonInfo() {
     const [pokemonData, setPokemonData] = useState([]);
 
     //function to fetch Pokemon data from an API
-    function getData() {
-        fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
+    function getData(name: string) {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${name}`) 
             .then(response => response.json())
             .then(data => {
                 setPokemonData(data.results);
@@ -15,9 +15,12 @@ export default function pokemonInfo() {
             .catch(error => console.error('Error fetching Pokemon data:', error));
     }
 
-    useEffect(getData, []);
+    useEffect(() => {
+        getData('pikachu'); // return a default pokemon on load
+    }, []);
 
     return {
+        // Expose the pokemonData and getData function
         pokemonData,
         getPokemonData: getData
     };
