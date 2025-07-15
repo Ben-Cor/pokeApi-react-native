@@ -1,7 +1,20 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { useFonts, PressStart2P_400Regular } from '@expo-google-fonts/press-start-2p';
 
 export default function Header() {
+  let [fontsLoaded] = useFonts({
+    PressStart2P_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return (
+      <View style={headerStyle.container}>
+        <Text style={headerStyle.title}>Pokemon App</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={headerStyle.container}>
       <Text style={headerStyle.title}>Pokemon App</Text>
@@ -25,8 +38,9 @@ const headerStyle = StyleSheet.create({
     marginTop: 25, // Adjust for status bar height
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 20, // Slightly smaller because pixel fonts appear larger
+    fontFamily: 'PressStart2P_400Regular',
     color: '#333',
+    textAlign: 'center',
   },
 });

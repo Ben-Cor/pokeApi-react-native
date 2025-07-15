@@ -72,24 +72,27 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#d63030ff',
+    color: '#fff',
   },
   scrollContainer: {
     flex: 1,
+    borderRadius: 10,
   },
   scrollContent: {
-    padding: 20,
+    margin: 20,
     minHeight: '100%',
+    borderRadius: 10,
   },
   message: {
     fontSize: 18,
-    color: '#666',
+    color: 'white',
     textAlign: 'center',
     marginTop: 50,
   },
   errorMessage: {
     fontSize: 18,
-    color: 'red',
+    color: 'white',
     textAlign: 'center',
     marginTop: 50,
   },
