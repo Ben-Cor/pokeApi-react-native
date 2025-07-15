@@ -4,6 +4,8 @@ import { View, StyleSheet, Text, SafeAreaView } from 'react-native';
 import PokemonSearchbar from '../components/Searchbar';
 import Header from '../components/Header';
 import usePokemonInfo from '../hooks/pokemonInfo';
+import SearchResults from '../components/SearchResults';
+import { useNavigation } from '@react-navigation/native';
 
 //duplicate of pokemon interface
 //TODO check if this can be imported rather than duplicated code
@@ -43,6 +45,14 @@ export default function SearchScreen() {
     }
   }, [pokemonData]);
 
+  const navigation = useNavigation();
+
+  const handlePokemonPress = (pokemon: Pokemon) => {
+    // Navigate to PokeInfo screen with the selected Pokemon data
+    console.log('Pokemon pressed:', pokemon.name);
+    navigation.navigate('PokeInfo', { pokemon });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header />
@@ -60,15 +70,9 @@ export default function SearchScreen() {
           </Text>
         )}
         
+        
         {searchedPokemon && !loading && !error && (
-          <View style={styles.pokemonCard}>
-            <Text style={styles.pokemonName}>
-              {searchedPokemon.name.toUpperCase()}
-            </Text>
-            <Text>Height: {searchedPokemon.height}</Text>
-            <Text>Weight: {searchedPokemon.weight}</Text>
-            <Text>ID: {searchedPokemon.id}</Text>
-          </View>
+          <SearchResults results={pokemonData ? [pokemonData] : null} onPokemonPress={handlePokemonPress} />
         )}
         
         {!loading && !error && !searchedPokemon && (
