@@ -1,11 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { useRoute } from '@react-navigation/native';
 
 export default function PokeInfo() {
+  const route = useRoute();
+  const { pokemon } = route.params as { pokemon: Pokemon };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>PokeInfo Screen</Text>
-      <Text>Details about the selected Pokémon will be displayed here.</Text>
+      <Text style={styles.title}>{pokemon.name}</Text>
+      <Text>Height: {pokemon.height}</Text>
+      <Text>Weight: {pokemon.weight}</Text>
+      {/* Add more Pokemon details here */}
     </View>
   );
 }
