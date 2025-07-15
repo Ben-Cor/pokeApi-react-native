@@ -18,10 +18,11 @@ interface Pokemon {
 }
 
 export default function usePokemonInfo() {
-  const [pokemonData, setPokemonData] = useState<Pokemon | null>(null);
+  const [pokemonData, setPokemonData] = useState<Pokemon | null>(null); // Initialize as null to handle cases where no data is fetched
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null); //either string or null
 
+    // Function to fetch Pokemon data by name
   const getData = async (name: string) => {
     setLoading(true);
     setError(null);
