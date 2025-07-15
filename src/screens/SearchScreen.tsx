@@ -46,26 +46,20 @@ export default function SearchScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      
-      {/* Your search bar */}
       <PokemonSearchbar onSearch={handleSearch} />
       
-      {/* Show different things based on what's happening */}
       <View style={styles.content}>
         
-        {/* Show loading message */}
         {loading && (
           <Text style={styles.message}>Looking for Pokemon...</Text>
         )}
         
-        {/* Show error message */}
         {error && (
           <Text style={styles.errorMessage}>
             Pokemon not found! Try "pikachu" or "charizard"
           </Text>
         )}
         
-        {/* Show Pokemon info if we found one */}
         {searchedPokemon && !loading && !error && (
           <View style={styles.pokemonCard}>
             <Text style={styles.pokemonName}>
@@ -77,7 +71,6 @@ export default function SearchScreen() {
           </View>
         )}
         
-        {/* Show welcome message when nothing is happening */}
         {!loading && !error && !searchedPokemon && (
           <Text style={styles.message}>
             Welcome! Search for a Pokemon above.
