@@ -75,10 +75,10 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   resultText: {
-    fontSize: 12,
+    fontSize: 8,
     color: '#333',
     textAlign: 'center',
-    fontWeight: '600',
+    fontFamily: 'PressStart2P_400Regular',
   },
   noResultsText: {
     fontSize: 16,

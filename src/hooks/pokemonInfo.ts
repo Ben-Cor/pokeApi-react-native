@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Pokemon } from "../types/pokemon";
 
+
 export default function usePokemonInfo() {
   const [pokemonData, setPokemonData] = useState<Pokemon[]>([]); // Initialize as empty array
   const [loading, setLoading] = useState(false);
