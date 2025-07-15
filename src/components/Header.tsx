@@ -15,6 +15,7 @@ export default function Header() {
     );
   }
 
+  // Re - render the header once fonts are loaded
   return (
     <View style={headerStyle.container}>
       <Text style={headerStyle.title}>Pokemon App</Text>
@@ -38,7 +39,7 @@ const headerStyle = StyleSheet.create({
     marginTop: 25, // Adjust for status bar height
   },
   title: {
-    fontSize: 20, // Slightly smaller because pixel fonts appear larger
+    fontSize: 20,
     fontFamily: 'PressStart2P_400Regular',
     color: '#333',
     textAlign: 'center',
