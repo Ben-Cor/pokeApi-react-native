@@ -6,6 +6,9 @@ import Header from '../components/Header';
 import usePokemonInfo from '../hooks/pokemonInfo';
 
 export default function SearchScreen() {
+  // This will hold our Pokemon data after searching
+  const [searchedPokemon, setSearchedPokemon] = useState(null);
+  
   // Get functions from your hook
   const { pokemonData, loading, error, getPokemonData } = usePokemonInfo();
 
@@ -14,6 +17,13 @@ export default function SearchScreen() {
     console.log('Searching for:', searchTerm);
     getPokemonData(searchTerm);
   };
+
+  // When pokemonData changes, update our searched pokemon
+  React.useEffect(() => {
+    if (pokemonData) {
+      setSearchedPokemon(pokemonData);
+    }
+  }, [pokemonData]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -38,19 +48,19 @@ export default function SearchScreen() {
         )}
         
         {/* Show Pokemon info if we found one */}
-        {pokemonData && !loading && !error && (
+        {searchedPokemon && !loading && !error && (
           <View style={styles.pokemonCard}>
             <Text style={styles.pokemonName}>
-              {pokemonData.name.toUpperCase()}
+              {searchedPokemon.name.toUpperCase()}
             </Text>
-            <Text>Height: {pokemonData.height}</Text>
-            <Text>Weight: {pokemonData.weight}</Text>
-            <Text>ID: {pokemonData.id}</Text>
+            <Text>Height: {searchedPokemon.height}</Text>
+            <Text>Weight: {searchedPokemon.weight}</Text>
+            <Text>ID: {searchedPokemon.id}</Text>
           </View>
         )}
         
         {/* Show welcome message when nothing is happening */}
-        {!loading && !error && !pokemonData && (
+        {!loading && !error && !searchedPokemon && (
           <Text style={styles.message}>
             Welcome! Search for a Pokemon above.
           </Text>
