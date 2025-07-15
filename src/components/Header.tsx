@@ -22,6 +22,7 @@ const headerStyle = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
+    marginTop: 75, // Adjust for status bar height
   },
   title: {
     fontSize: 24,
