@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SearchScreen from './src/screens/SearchScreen';
@@ -10,8 +12,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Search">
-        <Stack.Screen name="Search" component={SearchScreen} />
-        <Stack.Screen name="PokeInfo" component={PokeInfo} />
+        <Stack.Screen 
+          name="Search" 
+          component={SearchScreen} 
+          options={{ title: 'Pokemon Search' }}
+        />
+        <Stack.Screen 
+          name="PokeInfo" 
+          component={PokeInfo} 
+          options={{ title: 'Pokemon Details' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
