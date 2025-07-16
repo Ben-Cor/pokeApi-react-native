@@ -6,6 +6,7 @@ import { RootStackParamList } from '../types/navigation';
 import { useFonts, PressStart2P_400Regular } from '@expo-google-fonts/press-start-2p';
 import Navbar from "../components/Navbar";
 import { usePokemon } from '../context/PokemonContext';
+import Header from "../components/Header";
 
 export default function PokeInfo() {
   const { isFavorite, addFavorite, removeFavorite } = usePokemon();
@@ -35,10 +36,9 @@ export default function PokeInfo() {
 
   return (
     <View style={styles.screenContainer}>
+      <Header content={`PokeApp - ` + pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} />
       <Navbar />
       <View style={styles.container}>
-        <Text style={styles.title}>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</Text>
-
         <TouchableOpacity onPress={toggleFavourite}>
           <Text style={isFavorite(pokemon.name) ? styles.favoutite : styles.notFavourite}>
             {isFavorite(pokemon.name) ? 'Remove from Favourites' : 'Add to Favourites'}
