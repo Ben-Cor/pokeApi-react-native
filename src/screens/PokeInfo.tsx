@@ -5,21 +5,24 @@ import { Pokemon } from '../types/pokemon';
 import { RootStackParamList } from '../types/navigation';
 import { useFonts, PressStart2P_400Regular } from '@expo-google-fonts/press-start-2p';
 import Navbar from "../components/Navbar";
+import { usePokemon } from '../context/PokemonContext';
 
 export default function PokeInfo() {
+  const { isFavorite, addFavorite, removeFavorite } = usePokemon();
   const route = useRoute<RouteProp<RootStackParamList, 'PokeInfo'>>();
   const { pokemon } = route.params;
 
-  const [favourite, setFavourite] = React.useState(false);
+  const toggleFavourite = async () => {
+    if (isFavorite(pokemon.name)) {
+      await removeFavorite(pokemon.name);
+    } else {
+      await addFavorite(pokemon.name);
+    }
+  };
 
   let [fontsLoaded] = useFonts({
     PressStart2P_400Regular,
   });
-
-  const toggleFavourite = () => {
-    setFavourite(!favourite);
-    // TODO Global state to be added here later
-  };
 
   // Fallback for when fonts are not loaded
   if (!fontsLoaded) {
@@ -38,7 +41,7 @@ export default function PokeInfo() {
 
         <TouchableOpacity onPress={toggleFavourite}>
           <Text style={{ color: 'blue', marginBottom: 20 }}>
-            {favourite ? 'Remove from Favourites' : 'Add to Favourites'}
+            {isFavorite(pokemon.name) ? 'Remove from Favourites' : 'Add to Favourites'}
           </Text>
         </TouchableOpacity>
         
