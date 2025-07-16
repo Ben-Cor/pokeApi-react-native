@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useFonts, PressStart2P_400Regular } from '@expo-google-fonts/press-start-2p';
 
-export default function Header() {
+export default function Header({content}: { content: string }) {
   let [fontsLoaded] = useFonts({
     PressStart2P_400Regular,
   });
@@ -18,7 +18,7 @@ export default function Header() {
   // Re - render the header once fonts are loaded
   return (
     <View style={headerStyle.container}>
-      <Text style={headerStyle.title}>Pokemon App</Text>
+      <Text style={headerStyle.title}>{content}</Text>
     </View>
   );
 }

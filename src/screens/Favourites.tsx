@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView  } from "react-native";
 import Navbar from "../components/Navbar";
 import { usePokemon } from '../context/PokemonContext';
 import { useFonts, PressStart2P_400Regular } from '@expo-google-fonts/press-start-2p';
@@ -7,6 +7,7 @@ import SearchResults from "../components/SearchResults";
 import { SearchScreenNavigationProp } from '../types/navigation';
 import { useNavigation } from '@react-navigation/native';
 import { Pokemon } from '../types/pokemon';
+import Header from "../components/Header";
 
 export default function Favourites() {
   const { favorites } = usePokemon();
@@ -63,15 +64,19 @@ export default function Favourites() {
 
   return (
     <View style={styles.screenContainer}>
-        <Navbar />
-        <View style={styles.container}>
-            <Text style={styles.title}>Favourites Screen</Text>
-            {favoritePokemon.length > 0 ? (
-              <SearchResults results={favoritePokemon} onPokemonPress={handlePokemonPress} />
-            ) : (
-              <Text style={styles.noFavouritesText}>No favourites added yet.</Text>
-            )}
-        </View>
+      <Header content='PokeApp - Favourites' />
+      <Navbar />
+      <ScrollView 
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={true}
+      >
+        {favoritePokemon.length > 0 ? (
+          <SearchResults results={favoritePokemon} onPokemonPress={handlePokemonPress} />
+        ) : (
+          <Text style={styles.noFavouritesText}>No favourites added yet.</Text>
+        )}
+      </ScrollView>
     </View>
   );
 }
@@ -80,28 +85,34 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#f5f5f5",
-  },
-  title: {
-    fontSize: 16,
-    color: "#333",
-    fontFamily: 'PressStart2P_400Regular',
-    paddingBottom: 20,
+    backgroundColor: "#d63030ff",
+    paddingTop: 50,
   },
   screenContainer: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
-    paddingTop: 60,
+    backgroundColor: "#d63030ff",
+    paddingTop: 50,
   },
-  favouriteText: {
-    fontSize: 12,
-    color: "#555",
-    marginVertical: 5,
+  scrollView: {
+    flex: 1,
+    paddingTop: 20,
+  },
+  scrollContent: {
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+  title: {
+    fontSize: 16,
+    color: "#fff",
     fontFamily: 'PressStart2P_400Regular',
+    paddingBottom: 20,
+    marginTop: 20,
   },
   noFavouritesText: {
     fontSize: 16,
     color: "#888",
     marginTop: 20,
+    textAlign: "center",
   },
 });

@@ -38,7 +38,7 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header content='PokeApp - Search' />
       <Navbar />
       <PokemonSearchbar onSearch={handleSearch} />
       
