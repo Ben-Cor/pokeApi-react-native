@@ -12,7 +12,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <PokemonProvider>
+    <PokemonProvider >
       <NavigationContainer>
         <Stack.Navigator 
         initialRouteName="Search"
