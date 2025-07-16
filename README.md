@@ -17,7 +17,7 @@ If developed further, links to related pokemon (evolution, pre-evolution, etc.) 
 Tech Stack
 - React Native 
 - TypeScript
-- Expo 
+- Expo - Development framework for React Native
 - React Navigation - Navigation between screens
 - AsyncStorage - Local data persistence
 - PokéAPI - Pokemon data source
@@ -53,7 +53,7 @@ Tests
 Basic testing has been setup using React Native Testing Library. To run tests, use the following command:
 npm test
 
-File Sturcture
+File Structure
 The project structure is organized as follows:
 ```
 ├── app/ - Contains the main application code
@@ -77,3 +77,9 @@ The project structure is organized as follows:
 │   ├── PokemonContext.ts - Store for managing Pokemon favourite state
 
 
+Decision Process
+I have used React Native with Typescript, with Expo for development and AsyncStorage for local data persistence as requested. The PokéAPI is used as the data source for fetching Pokemon information. The app is structured to allow easy navigation between screens, with a focus on performance and user experience.
+
+Originally developed with Stack for routing but switched to file based routing instead of Stack - stack used in error after following tutorials and advice. Corrected to align with brief provided.
+
+Testing was to be undertaken with Jest but due to constraints found with using React 19 and React Native, I have used React Native Testing Library instead. This allows for basic testing of components and functionality.
