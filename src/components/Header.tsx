@@ -26,7 +26,7 @@ export default function Header() {
 const headerStyle = StyleSheet.create({
   container: {
     backgroundColor: '#f8f8f8',
-    padding: 16,
+    padding: 14,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
