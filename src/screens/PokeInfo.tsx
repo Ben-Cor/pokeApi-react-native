@@ -40,7 +40,7 @@ export default function PokeInfo() {
         <Text style={styles.title}>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</Text>
 
         <TouchableOpacity onPress={toggleFavourite}>
-          <Text style={{ color: 'blue', marginBottom: 20 }}>
+          <Text style={isFavorite(pokemon.name) ? styles.favoutite : styles.notFavourite}>
             {isFavorite(pokemon.name) ? 'Remove from Favourites' : 'Add to Favourites'}
           </Text>
         </TouchableOpacity>
@@ -129,6 +129,18 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#333",
     marginBottom: 5,
+    fontFamily: 'PressStart2P_400Regular',
+  },
+  favoutite: {
+    fontSize: 10,
+    color: "#d888",
+    marginBottom: 20,
+    fontFamily: 'PressStart2P_400Regular',
+  },
+  notFavourite: {
+    fontSize: 14,
+    color: "#d63030ff",
+    marginBottom: 20,
     fontFamily: 'PressStart2P_400Regular',
   },
 });
