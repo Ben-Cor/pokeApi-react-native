@@ -7,8 +7,8 @@ export default function Favourites() {
     <View style={styles.screenContainer}>
         <Navbar />
         <View style={styles.container}>
-        <Text style={styles.title}>Favourites Screen</Text>
-        <Text>List of favourite Pokémon will be displayed here.</Text>
+            <Text style={styles.title}>Favourites Screen</Text>
+            <Text>List of favourite Pokémon will be displayed here.</Text>
         </View>
     </View>
   );
