@@ -28,10 +28,14 @@ export default function PokeInfo() {
   // Fallback for when fonts are not loaded
   if (!fontsLoaded) {
     return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Loading...</Text>
-    </View>
-  );
+      <View style={styles.screenContainer}>
+        <Header content="PokeApp" />
+        <Navbar />
+        <View style={styles.container}>
+          <Text style={styles.title}>Loading...</Text>
+        </View>
+      </View>
+    );
 }
 
   return (
