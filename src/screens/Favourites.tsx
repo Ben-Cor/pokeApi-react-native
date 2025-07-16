@@ -12,6 +12,7 @@ export default function Favourites() {
   const { favorites } = usePokemon();
   const [favoritePokemon, setFavoritePokemon] = useState<Pokemon[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation<SearchScreenNavigationProp>();
   
   let [fontsLoaded] = useFonts({
     PressStart2P_400Regular,
@@ -55,8 +56,6 @@ export default function Favourites() {
       </View>
     );
   }
-
-  const navigation = useNavigation<SearchScreenNavigationProp>();
 
   const handlePokemonPress = (pokemon: Pokemon) => {
     navigation.navigate('PokeInfo', { pokemon });
