@@ -39,7 +39,7 @@ const headerStyle = StyleSheet.create({
     marginTop: 25, // Adjust for status bar height
   },
   title: {
-    fontSize: 20,
+    fontSize: 16,
     fontFamily: 'PressStart2P_400Regular',
     color: '#333',
     textAlign: 'center',
