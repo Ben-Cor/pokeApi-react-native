@@ -2,10 +2,22 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Navbar from "../components/Navbar";
 import { usePokemon } from '../context/PokemonContext';
+import { useFonts, PressStart2P_400Regular } from '@expo-google-fonts/press-start-2p';
 
 export default function Favourites() {
 
   const { favorites } = usePokemon();
+  let [fontsLoaded] = useFonts({
+    PressStart2P_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.screenContainer}>
@@ -29,14 +41,14 @@ export default function Favourites() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#f5f5f5",
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 16,
     color: "#333",
+    fontFamily: 'PressStart2P_400Regular',
+    paddingBottom: 20,
   },
   screenContainer: {
     flex: 1,
@@ -44,9 +56,10 @@ const styles = StyleSheet.create({
     paddingTop: 60,
   },
   favouriteText: {
-    fontSize: 18,
+    fontSize: 12,
     color: "#555",
     marginVertical: 5,
+    fontFamily: 'PressStart2P_400Regular',
   },
   noFavouritesText: {
     fontSize: 16,
