@@ -1,23 +1,20 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { RootStackParamList } from "../types/navigation";
+import { router, useSegments } from 'expo-router';
 import { useFonts, PressStart2P_400Regular } from '@expo-google-fonts/press-start-2p';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 export default function Navbar() {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  const route = useRoute();
-
+  const segments = useSegments();
+  
   let [fontsLoaded] = useFonts({
     PressStart2P_400Regular,
   });
 
   // Determine which screen we're currently on
-  const isSearchScreen = route.name === "Search";
-  const isFavoritesScreen = route.name === "Favourites";
+  const currentRoute = segments[0] || 'index';
+  const isSearchScreen = currentRoute === 'index' || currentRoute === '';
+  const isFavoritesScreen = currentRoute === 'favourites';
 
-  // Simple fallback while fonts load
   if (!fontsLoaded) {
     return (
       <View style={navbarStyle.container}>
@@ -29,20 +26,20 @@ export default function Navbar() {
   return (
     <View style={navbarStyle.container}>
       {isSearchScreen ? (
-        <TouchableOpacity onPress={() => navigation.navigate("Favourites")}>
+        <TouchableOpacity onPress={() => router.push('/favourites')}>
           <Text style={navbarStyle.title}>Favourites</Text>
         </TouchableOpacity>
       ) : isFavoritesScreen ? (
-        <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+        <TouchableOpacity onPress={() => router.push('/')}>
           <Text style={navbarStyle.title}>Search</Text>
         </TouchableOpacity>
       ) : (
-        // Default case (for PokeInfo or other screens)
+        // Default case (for Pokemon details or other screens)
         <View style={navbarStyle.row}>
-          <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+          <TouchableOpacity onPress={() => router.push('/')}>
             <Text style={navbarStyle.title}>Search</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Favourites")}>
+          <TouchableOpacity onPress={() => router.push('/favourites')}>
             <Text style={navbarStyle.title}>Favourites</Text>
           </TouchableOpacity>
         </View>
