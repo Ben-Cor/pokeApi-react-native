@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     overflow: 'hidden', // This ensures child elements don't overflow the rounded corners
+    width: '100%',
   },
   grid: {
     flexDirection: 'row',
