@@ -7,11 +7,12 @@ import { useFonts, PressStart2P_400Regular } from '@expo-google-fonts/press-star
 import SearchResults from "../src/components/SearchResults";
 import { Pokemon } from '../src/types/pokemon';
 import Header from "../src/components/Header";
+import usePokemonInfo from '../src/hooks/pokemonInfo';
 
 export default function Favourites() {
   const { favorites } = usePokemon();
   const [favoritePokemon, setFavoritePokemon] = useState<Pokemon[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { pokemonData, loading, error, getPokemonData } = usePokemonInfo();
   
   let [fontsLoaded] = useFonts({
     PressStart2P_400Regular,
@@ -21,31 +22,59 @@ export default function Favourites() {
     const fetchFavoritePokemons = async () => {
       if (favorites.length === 0) {
         setFavoritePokemon([]);
-        setLoading(false);
+        // setLoading(false);
         return;
       }
 
-      try {
-        const pokemonPromises = favorites.map(async (name) => {
-          const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-          if (response.ok) {
-            return await response.json();
-          }
-          return null;
-        });
+  //     try {
+  //       const pokemonPromises = favorites.map(async (name) => {
+  //         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+  //         if (response.ok) {
+  //           return await response.json();
+  //         }
+  //         return null;
+  //       });
 
-        const pokemonData = await Promise.all(pokemonPromises);
-        const validPokemon = pokemonData.filter(p => p !== null) as Pokemon[];
-        setFavoritePokemon(validPokemon);
+  //       const pokemonData = await Promise.all(pokemonPromises);
+  //       const validPokemon = pokemonData.filter(p => p !== null) as Pokemon[];
+  //       setFavoritePokemon(validPokemon);
+  //     } catch (error) {
+  //       console.error('Error fetching favorite Pokemon:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchFavoritePokemons();
+  // }, [favorites]);
+
+  // Fetch all Pokemon that match favorites
+      const favoritePromises = favorites.map(name => getPokemonData(name));
+      
+      try {
+        await Promise.all(favoritePromises);
+        // Filter the results to only include favorites
+        const favoriteResults = pokemonData.filter(pokemon => 
+          favorites.some(fav => fav.toLowerCase() === pokemon.name.toLowerCase())
+        );
+        setFavoritePokemon(favoriteResults);
       } catch (error) {
         console.error('Error fetching favorite Pokemon:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchFavoritePokemons();
   }, [favorites]);
+
+  // Update when pokemonData changes
+  useEffect(() => {
+    if (pokemonData.length > 0) {
+      const favoriteResults = pokemonData.filter(pokemon => 
+        favorites.some(fav => fav.toLowerCase() === pokemon.name.toLowerCase())
+      );
+      setFavoritePokemon(favoriteResults);
+    }
+  }, [pokemonData, favorites]);
 
   if (!fontsLoaded || loading) {
     return (
