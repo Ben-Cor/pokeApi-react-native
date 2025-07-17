@@ -46,10 +46,32 @@ export default function usePokemonInfo() {
     }
   };
 
+  const getSinglePokemon = async (id: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id.toLowerCase()}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data for Pokémon: ${id}`);
+      }
+      const data = await response.json();
+      // Although we are fetching a single pokemon, we set it in the pokemonData array
+      // to be consistent with the hook's return type.
+      // A better long-term solution would be to have separate states for list and single item.
+      setPokemonData([data]); 
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      setPokemonData([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     pokemonData,
     loading,
     error,
-    getPokemonData: getData
+    getPokemonData: getData,
+    getSinglePokemon, // Export the new function
   };
 }

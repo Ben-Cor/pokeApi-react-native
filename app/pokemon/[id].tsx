@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useLocalSearchParams } from 'expo-router';
 import { Pokemon } from '../../src/types/pokemon';
@@ -6,13 +6,23 @@ import { useFonts, PressStart2P_400Regular } from '@expo-google-fonts/press-star
 import Navbar from "../../src/components/Navbar";
 import { usePokemon } from '../../src/context/PokemonContext';
 import Header from "../../src/components/Header";
+import usePokemonInfo from "../../src/hooks/pokemonInfo";
 
 export default function PokemonDetails() {
   const { isFavorite, addFavorite, removeFavorite } = usePokemon();
-  const { id, pokemonData } = useLocalSearchParams();
+  const { id } = useLocalSearchParams<{ id: string }>();
   
-  // Parse the pokemon data from params
-  const pokemon: Pokemon = pokemonData ? JSON.parse(pokemonData as string) : null;
+ // Use our hook to fetch the single Pokemon
+  const { pokemonData, loading, error, getSinglePokemon } = usePokemonInfo();
+
+  useEffect(() => {
+    if (id) {
+      getSinglePokemon(id);
+    }
+  }, [id]);
+
+  // The single pokemon will be the first item in the array
+  const pokemon = pokemonData?.[0];
 
   const toggleFavourite = async () => {
     if (pokemon && isFavorite(pokemon.name)) {
