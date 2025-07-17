@@ -26,28 +26,6 @@ export default function Favourites() {
         return;
       }
 
-  //     try {
-  //       const pokemonPromises = favorites.map(async (name) => {
-  //         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-  //         if (response.ok) {
-  //           return await response.json();
-  //         }
-  //         return null;
-  //       });
-
-  //       const pokemonData = await Promise.all(pokemonPromises);
-  //       const validPokemon = pokemonData.filter(p => p !== null) as Pokemon[];
-  //       setFavoritePokemon(validPokemon);
-  //     } catch (error) {
-  //       console.error('Error fetching favorite Pokemon:', error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchFavoritePokemons();
-  // }, [favorites]);
-
   // Fetch all Pokemon that match favorites
       const favoritePromises = favorites.map(name => getPokemonData(name));
       
